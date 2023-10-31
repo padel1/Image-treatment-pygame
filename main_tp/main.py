@@ -1,6 +1,7 @@
 import sys
 import pygame
 from constant import *
+from operations import Operation
 from helper import Helper
 from stages import Stage
 import pygame_gui
@@ -39,20 +40,20 @@ dropdown_convert_from = pygame_gui.elements.UIDropDownMenu(
 dropdown_convert_to = pygame_gui.elements.UIDropDownMenu(
     options_list=options_convert,
     starting_option="choose",
-    relative_rect=pygame.Rect((700, 550), (100, 50)),
+    relative_rect=pygame.Rect((790, 550), (100, 50)),
     manager=manager,
 )
 convert_btn = pygame_gui.elements.UIButton(
-    relative_rect=pygame.Rect((600, 580), (90, 40)), text="Convert", manager=manager
+    relative_rect=pygame.Rect((600, 600), (90, 40)), text="Convert", manager=manager
 )
 
 main_image = pygame.Surface(MAIN_IMAGE_SIZE)
-default_image = pygame.transform.scale(
+resault_image = pygame.transform.scale(
     pygame.image.load("images/background.png"), MAIN_IMAGE_SIZE
 )
 
 stage = Stage()
-
+operation=Operation()
 while True:
     screen.fill(BG_COLOR)
     for event in pygame.event.get():
@@ -69,6 +70,8 @@ while True:
                     main_image = pygame.transform.scale(
                         pygame.image.load(path), MAIN_IMAGE_SIZE
                     )
+                if event.ui_element == convert_btn:
+                    resault_image=operation.convert(main_image,dropdown_convert_from.selected_option,dropdown_convert_to.selected_option)
             elif event.user_type == pygame_gui.UI_DROP_DOWN_MENU_CHANGED:
                 if event.ui_element == dropdown:
                     if event.text == "choose op":
@@ -91,6 +94,6 @@ while True:
             screen, main_image, SCREEN_WIDTH // 2 - 150, SCREEN_HEIGHT // 2 - 150
         )
     elif stage.stage == "convertion":
-        stage.convertion(screen, main_image, default_image)
+        stage.convertion(screen, main_image, resault_image)
 
     pygame.display.update()
