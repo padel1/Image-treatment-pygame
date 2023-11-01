@@ -23,7 +23,8 @@ root = helper.initialize_root()
 # pygame gui items
 manager = pygame_gui.UIManager((SCREEN_WIDTH, SCREEN_HEIGHT), "json.json")
 
-options = ["Choose Op", "convertions", "histogram ", "Scale", "Rotate", "conteur"]
+options = ["Choose Op", "convertions",
+           "histogram ", "Scale", "Rotate", "conteur"]
 dropdown = pygame_gui.elements.UIDropDownMenu(
     options_list=options,
     starting_option=options[0],
@@ -50,13 +51,20 @@ convert_btn = pygame_gui.elements.UIButton(
     relative_rect=pygame.Rect((600, 600), (90, 40)), text="Convert", manager=manager
 )
 
-main_image = pygame.Surface(MAIN_IMAGE_SIZE)
-resault_image = pygame.transform.scale(
-    pygame.image.load("images/background.png"), MAIN_IMAGE_SIZE
-)
+# main_image = pygame.Surface(MAIN_IMAGE_SIZE)
+main_image = cv.resize(
+    cv.imread("main_tp/images/background.png"), MAIN_IMAGE_SIZE)
+resault_image = cv.resize(
+    cv.imread("main_tp/images/background.png"), MAIN_IMAGE_SIZE)
+
+
+# resault_image = pygame.transform.scale(
+#     pygame.image.load("main_tp/images/background.png"), MAIN_IMAGE_SIZE
+# )
+
 
 stage = Stage()
-operation=Operation()
+operation = Operation()
 while True:
     screen.fill(BG_COLOR)
     for event in pygame.event.get():
@@ -70,11 +78,15 @@ while True:
             if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                 if event.ui_element == load_image_btn:
                     path = helper.select_image()
-                    main_image = pygame.transform.scale(
-                        pygame.image.load(path), MAIN_IMAGE_SIZE
-                    )
+                    main_image = cv.resize(cv.imread(path), (300, 300))
+                    # main_image = pygame.transform.scale(
+                    #     pygame.image.load(path), MAIN_IMAGE_SIZE
+                    # )
                 if event.ui_element == convert_btn:
-                    resault_image=operation.convert(main_image,dropdown_convert_from.selected_option,dropdown_convert_to.selected_option)
+
+                    resault_image = operation.convert(
+                        main_image, dropdown_convert_from.selected_option, dropdown_convert_to.selected_option)
+
             elif event.user_type == pygame_gui.UI_DROP_DOWN_MENU_CHANGED:
                 if event.ui_element == dropdown:
                     if event.text == "choose op":
