@@ -15,7 +15,7 @@ class Stage:
 
     def main(self, screen, image, x, y):
         image = self.kima_t7ab_l_blit(image)
-        surf = pygame.surfarray.make_surface(image)
+        surf = pygame.transform.scale(pygame.surfarray.make_surface(image),MAIN_IMAGE_SIZE)
         screen.blit(surf, (x, y))
 
     def convertion(self, screen, image1, image2):
