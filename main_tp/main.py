@@ -51,8 +51,8 @@ dropdown_convert_to = pygame_gui.elements.UIDropDownMenu(
 convert_btn = pygame_gui.elements.UIButton(
     relative_rect=pygame.Rect((600, 600), (90, 40)), text="Convert", manager=manager
 )
-main_image = cv.imread("main_tp/images/background.png")
-resault_image = cv.imread("main_tp/images/background.png")
+main_image = cv.imread("images/background.png")
+resault_image = cv.imread("images/background.png")
 widget = [dropdown_convert_from, dropdown_convert_to, convert_btn]
 
 
@@ -94,6 +94,7 @@ while True:
 
                     if dropdown.selected_option == Drop_Down.histogram:
                         stage.stage = Drop_Down.histogram
+            
 
         manager.process_events(event)
 
@@ -112,6 +113,7 @@ while True:
         stage.convertion(screen, main_image, resault_image)
         helper.widget_visibility(
             widget, [dropdown_convert_from, dropdown_convert_to, convert_btn])
-
+    elif stage.stage == Drop_Down.histogram:
+        helper.widget_visibility(widget, [])
     pygame.display.update()
     # test
