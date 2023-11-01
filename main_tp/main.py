@@ -50,15 +50,8 @@ dropdown_convert_to = pygame_gui.elements.UIDropDownMenu(
 convert_btn = pygame_gui.elements.UIButton(
     relative_rect=pygame.Rect((600, 600), (90, 40)), text="Convert", manager=manager
 )
-
-# main_image = pygame.Surface(MAIN_IMAGE_SIZE)
-main_image = cv.imread("images/background.png")
-resault_image = cv.imread("images/background.png")
-
-
-# resault_image = pygame.transform.scale(
-#     pygame.image.load("main_tp/images/background.png"), MAIN_IMAGE_SIZE
-# )
+main_image = cv.imread("main_tp/images/background.png")
+resault_image = cv.imread("main_tp/images/background.png")
 
 
 stage = Stage()

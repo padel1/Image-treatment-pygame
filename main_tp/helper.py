@@ -9,7 +9,8 @@ class Helper:
     def select_image(self):
         file_path = filedialog.askopenfilename(
             title="Select an Image",
-            filetypes=[("Image files", "*.png *.jpg *.jpeg *.gif *.bmp *.tif")],
+            filetypes=[
+                ("Image files", "*.png *.jpg *.jpeg *.gif *.bmp *.tif")],
         )
         return file_path  # Return the file path
 
