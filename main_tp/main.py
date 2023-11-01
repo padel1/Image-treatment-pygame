@@ -20,11 +20,12 @@ screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 helper = Helper()
 root = helper.initialize_root()
 
+
 # pygame gui items
 manager = pygame_gui.UIManager((SCREEN_WIDTH, SCREEN_HEIGHT), "json.json")
 
-options = ["Choose Op", "convertions",
-           "histogram ", "Scale", "Rotate", "conteur"]
+options = [Drop_Down.choose_op, Drop_Down.conversion,
+           Drop_Down.histogram, Drop_Down.rotate, Drop_Down.scale, Drop_Down.conteur]
 dropdown = pygame_gui.elements.UIDropDownMenu(
     options_list=options,
     starting_option=options[0],
@@ -50,18 +51,13 @@ dropdown_convert_to = pygame_gui.elements.UIDropDownMenu(
 convert_btn = pygame_gui.elements.UIButton(
     relative_rect=pygame.Rect((600, 600), (90, 40)), text="Convert", manager=manager
 )
-
-# main_image = pygame.Surface(MAIN_IMAGE_SIZE)
-main_image = cv.imread("images/background.png")
-resault_image = cv.imread("images/background.png")
-
-
-# resault_image = pygame.transform.scale(
-#     pygame.image.load("main_tp/images/background.png"), MAIN_IMAGE_SIZE
-# )
+main_image = cv.imread("main_tp/images/background.png")
+resault_image = cv.imread("main_tp/images/background.png")
+widget = [dropdown_convert_from, dropdown_convert_to, convert_btn]
 
 
-stage = Stage()
+stage = Stage(Drop_Down.choose_op)
+
 operation = Operation()
 while True:
     screen.fill(BG_COLOR)
@@ -86,15 +82,18 @@ while True:
                         main_image, dropdown_convert_from.selected_option, dropdown_convert_to.selected_option)
 
             elif event.user_type == pygame_gui.UI_DROP_DOWN_MENU_CHANGED:
+
                 if event.ui_element == dropdown:
-                    if event.text == "choose op":
-                        stage.stage = "main"
 
-                    if event.text == "convertions":
-                        stage.stage = "convertion"
+                    if dropdown.selected_option == Drop_Down.choose_op:
 
-                    if event.text == "histogram":
-                        stage.stage = "histogram"
+                        stage.stage = Drop_Down.choose_op
+
+                    if dropdown.selected_option == Drop_Down.conversion:
+                        stage.stage = Drop_Down.conversion
+
+                    if dropdown.selected_option == Drop_Down.histogram:
+                        stage.stage = Drop_Down.histogram
 
         manager.process_events(event)
 
@@ -102,11 +101,17 @@ while True:
     manager.update(pygame.time.Clock().tick(60) / 1000.0)
     manager.draw_ui(screen)
 
-    if stage.stage == "main":
+    if stage.stage == Drop_Down.choose_op:
+
         stage.main(
             screen, main_image, SCREEN_WIDTH // 2 - 150, SCREEN_HEIGHT // 2 - 150
         )
-    elif stage.stage == "convertion":
+        helper.widget_visibility(widget, [])
+    elif stage.stage == Drop_Down.conversion:
+
         stage.convertion(screen, main_image, resault_image)
+        helper.widget_visibility(
+            widget, [dropdown_convert_from, dropdown_convert_to, convert_btn])
 
     pygame.display.update()
+    # test

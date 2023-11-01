@@ -9,7 +9,8 @@ class Helper:
     def select_image(self):
         file_path = filedialog.askopenfilename(
             title="Select an Image",
-            filetypes=[("Image files", "*.png *.jpg *.jpeg *.gif *.bmp *.tif")],
+            filetypes=[
+                ("Image files", "*.png *.jpg *.jpeg *.gif *.bmp *.tif")],
         )
         return file_path  # Return the file path
 
@@ -17,3 +18,10 @@ class Helper:
         root = Tk()
         root.withdraw()
         return root
+
+    def widget_visibility(self, widget, show_list):
+        for i in widget:
+            if i in show_list:
+                i.show()
+            else:
+                i.hide()
