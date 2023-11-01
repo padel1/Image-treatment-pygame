@@ -22,6 +22,6 @@ class Stage:
         image1 = self.kima_t7ab_l_blit(image1)
         image2 = self.kima_t7ab_l_blit(image2)
         img_rect = ((150, 190))
-        screen.blit(pygame.surfarray.make_surface(image1), img_rect)
+        screen.blit(pygame.transform.scale((pygame.surfarray.make_surface(image1)),MAIN_IMAGE_SIZE), img_rect)
         img_rect = ((SCREEN_WIDTH-(150+MAIN_IMAGE_SIZE[1]), 190))
-        screen.blit(pygame.surfarray.make_surface(image2), img_rect)
+        screen.blit(pygame.transform.scale((pygame.surfarray.make_surface(image2)),MAIN_IMAGE_SIZE), img_rect)

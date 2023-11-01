@@ -52,10 +52,8 @@ convert_btn = pygame_gui.elements.UIButton(
 )
 
 # main_image = pygame.Surface(MAIN_IMAGE_SIZE)
-main_image = cv.resize(
-    cv.imread("main_tp/images/background.png"), MAIN_IMAGE_SIZE)
-resault_image = cv.resize(
-    cv.imread("main_tp/images/background.png"), MAIN_IMAGE_SIZE)
+main_image = cv.imread("images/background.png")
+resault_image = cv.imread("images/background.png")
 
 
 # resault_image = pygame.transform.scale(
