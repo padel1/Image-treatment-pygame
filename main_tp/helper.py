@@ -18,3 +18,10 @@ class Helper:
         root = Tk()
         root.withdraw()
         return root
+
+    def widget_visibility(self, widget, show_list):
+        for i in widget:
+            if i in show_list:
+                i.show()
+            else:
+                i.hide()

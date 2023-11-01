@@ -6,8 +6,8 @@ import numpy as np
 
 
 class Stage:
-    def __init__(self) -> None:
-        self.stage = "main"
+    def __init__(self, stage) -> None:
+        self.stage = stage
 
     def kima_t7ab_l_blit(self, image):
         image = cv.cvtColor(image, cv.COLOR_BGR2RGB)
